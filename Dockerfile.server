@@ -1,0 +1,24 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Copy the requirements file and install dependencies in cached mode
+COPY requirements.txt .
+
+# Update pip and install dependencies
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+# Copy only the required files
+
+
+COPY server.py .
+COPY rag_service_pb2.py .
+COPY rag_service_pb2_grpc.py .
+COPY rag_service.proto .
+COPY src/ ./src/
+COPY data/ ./data/
+COPY ragclient.py .
+COPY .env .
+
+
+CMD ["python", "server.py"]

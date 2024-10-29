@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package rag;
+
+service RAGService {
+    rpc GetResponse (QueryRequest) returns (QueryResponse) {}
+}
+
+message QueryRequest {
+    string query = 1;
+}
+
+message QueryResponse {
+    string response = 1;
+}

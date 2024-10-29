@@ -1,0 +1,14 @@
+numpy==2.0.2
+pandas==2.2.3
+grpcio==1.67.0
+grpcio-tools==1.67.0
+protobuf==5.28.3
+qdrant-client==1.12.0
+python-multipart==0.0.16
+scikit-learn==1.5.2
+langchain-core==0.3.13
+gradio==4.44.1
+loguru==0.7.2
+sentence-transformers==3.2.1
+groq==0.11.0
+python-dotenv==1.0.1

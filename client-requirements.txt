@@ -1,0 +1,5 @@
+grpcio==1.67.0
+grpcio-tools==1.67.0
+protobuf==5.28.3
+gradio==4.44.1
+loguru==0.7.2

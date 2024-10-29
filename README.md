@@ -53,11 +53,9 @@ Follow these steps to set up and run the project:
 
 ### Demo Video Link
 
- [Video Link ](Here is the loom video sir: https://www.loom.com/share22f17fb9b58146ffb3cd5903b58715f9sid=abb008fd-5ab7-41f6-9da9-0ffe318acc72)
+ [Video Link ](https://www.loom.com/share/22f17fb9b58146ffb3cd5903b58715f9?sid=abb008fd-5ab7-41f6-9da9-0ffe318acc72)
 
 
-
- ### Structure Diagram
 
  
 

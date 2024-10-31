@@ -1,28 +1,34 @@
-from src.parser.get_yar_metadata import GetYarMetadata
-from src.embedder.embedder import EmbeddingWrapper
-import os
+# threatmon_parser.py
+from typing import Dict, List, Optional, Union
 from pathlib import Path
+import os
+
+from src.embedder.embedder import EmbeddingWrapper
+
 
 class FileProcessor:
-    def __init__(self):
+    """Process and manage YARA and IOC files for threat monitoring."""
+
+    def __init__(self) -> None:
+        """Initialize FileProcessor with required components."""
         self.embedder = EmbeddingWrapper()
-        self.yara_extensions = ('.yar', '.yara')
-        self.ioc_extensions = ('.txt',)
-        self.files_found = {
+        self.yara_extensions: tuple = ('.yar', '.yara')
+        self.ioc_extensions: tuple = ('.txt',)
+        self.files_found: Dict[str, List[Path]] = {
             'yara': [],
             'ioc': []
         }
-        self.chunks = []  # Move chunks list to instance variable
+        self.chunks: List[Dict[str, Any]] = []
 
-    def read_file(self, file_path):
+    def read_file(self, file_path: Path) -> Optional[str]:
         """
         Read a file and return its contents as a string.
-        
+
         Args:
-            file_path (Path): Path to the file
-            
+            file_path: Path to the file to read
+
         Returns:
-            str: Contents of the file as a string
+            Contents of the file as a string, or None if reading fails
         """
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
@@ -35,15 +41,15 @@ class FileProcessor:
             print(f"Error reading file: {str(e)}")
             return None
 
-    def find_all_files(self, root_directory):
+    def find_all_files(self, root_directory: str) -> Dict[str, List[Path]]:
         """
-        Recursively find all YARA and IOC files in the directory and its subdirectories.
-        
+        Recursively find all YARA and IOC files in the directory.
+
         Args:
-            root_directory (str): Root directory to start the search
-            
+            root_directory: Root directory to start the search
+
         Returns:
-            dict: Dictionary containing lists of found YARA and IOC files
+            Dictionary containing lists of found YARA and IOC files
         """
         root_path = Path(root_directory)
         
@@ -59,16 +65,13 @@ class FileProcessor:
 
         return self.files_found
 
-    def process_file(self, file_path, file_type):
+    def process_file(self, file_path: Path, file_type: str) -> None:
         """
-        Process a single file (YARA or IOC) and return the processed chunk.
-        
+        Process a single file and add it to the chunks list.
+
         Args:
-            file_path (Path): Path to the file
-            file_type (str): Type of file ('yara' or 'ioc')
-            
-        Returns:
-            dict: Processed chunk containing embeddings, text, and document info
+            file_path: Path to the file to process
+            file_type: Type of file ('yara' or 'ioc')
         """
         content = self.read_file(file_path)
         file_name = self.extract_directory_name(file_path)
@@ -76,40 +79,37 @@ class FileProcessor:
         if content:
             try:
                 embeddings = self.embedder.generate_embeddings(content)
-
                 chunk = {
                     "embeddings": embeddings,
                     "text": content,
                     "document": file_name
                 }
-                
                 self.chunks.append(chunk)
-                
             except Exception as e:
                 print(f"Error processing {file_path.name}: {str(e)}")
 
-    def extract_directory_name(self, file_path):
+    def extract_directory_name(self, file_path: Path) -> str:
         """
         Extract the directory name from a file path.
-        
+
         Args:
-            file_path (Path): Path to the file
-            
+            file_path: Path to the file
+
         Returns:
-            str: Directory name without leading slash
+            Directory name without leading slash
         """
         directory_path = os.path.dirname(file_path)
         return directory_path.split("/")[-1]
 
-    def process_all_files(self, root_directory):
+    def process_all_files(self, root_directory: str) -> List[Dict[str, Any]]:
         """
         Process all YARA and IOC files in the directory and its subdirectories.
-        
+
         Args:
-            root_directory (str): Root directory containing the files
-            
+            root_directory: Root directory containing the files
+
         Returns:
-            list: List of dictionaries containing processed file data
+            List of dictionaries containing processed file data
         """
         self.chunks = []  # Reset chunks list at the start of processing
         files = self.find_all_files(root_directory)
@@ -120,12 +120,3 @@ class FileProcessor:
                 self.process_file(file_path, file_type)
 
         return self.chunks
-
-
-# Extract metadata only for YARA files
-            # if file_type == 'yara':
-            #     metaclass = GetYarMetadata(content)
-            #     meta_data = metaclass.get_meta_data_info()
-            #     print(f"Metadata for {file_path.name}:")
-            #     print(meta_data)
-                

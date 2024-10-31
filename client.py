@@ -8,7 +8,7 @@ import gradio as gr
 import os
 from typing import Tuple, List, Optional
 from loguru import logger
-from ragclient import RAGClient
+from src.utils.ragclient import RAGClient
 
 class ChatbotUI:
     def __init__(self):

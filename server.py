@@ -3,14 +3,14 @@ import grpc
 from concurrent import futures
 import rag_service_pb2_grpc as pb2_grpc
 import rag_service_pb2 as pb2
-from src.groqwrapper import GroqWrapper
-from src.embedder import EmbeddingWrapper
-from src.qdrant_utils import QdrantWrapper
-from src.threatmon_parser import FileProcessor
+from src.llm.groqwrapper import GroqWrapper
+from src.embedder.embedder import EmbeddingWrapper
+from src.qdrant.qdrant_utils import QdrantWrapper
+from src.parser.threatmon_parser import FileProcessor
 from concurrent import futures
 import rag_service_pb2_grpc as pb2_grpc
 import rag_service_pb2 as pb2
-from src.utils import prepare_prompt, rerank_docs
+from src.utils.utils import prepare_prompt, rerank_docs
 
 from loguru import logger
 

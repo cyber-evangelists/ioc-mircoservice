@@ -1,5 +1,5 @@
-from src.get_yar_metadata import GetYarMetadata
-from src.embedder import EmbeddingWrapper
+from src.parser.get_yar_metadata import GetYarMetadata
+from src.embedder.embedder import EmbeddingWrapper
 import os
 from pathlib import Path
 

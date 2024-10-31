@@ -16,7 +16,6 @@ COPY client.py .
 COPY rag_service_pb2.py .
 COPY rag_service_pb2_grpc.py .
 COPY rag_service.proto .
-COPY ragclient.py .
 
 # Run the application
 CMD ["python", "client.py"]

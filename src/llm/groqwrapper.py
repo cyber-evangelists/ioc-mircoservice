@@ -1,6 +1,6 @@
 import os
 from groq import Groq
-from src.config import Config
+from src.config.config import Config
 
 
 class GroqWrapper:

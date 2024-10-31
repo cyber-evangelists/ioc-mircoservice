@@ -1,7 +1,7 @@
 # client.py
 import grpc
-import rag_service_pb2_grpc as pb2_grpc
-import rag_service_pb2 as pb2
+import src.grpc_files.rag_service_pb2_grpc as pb2_grpc
+import src.grpc_files.rag_service_pb2 as pb2
 import time
 import sys
 import gradio as gr

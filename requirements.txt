@@ -2,7 +2,7 @@ numpy==2.0.2
 pandas==2.2.3
 grpcio==1.67.0
 grpcio-tools==1.67.0
-protobuf==5.28.3
+protobuf==5.29.5
 qdrant-client==1.12.0
 python-multipart==0.0.18
 scikit-learn==1.5.2
